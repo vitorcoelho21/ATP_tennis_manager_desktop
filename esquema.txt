@@ -1,0 +1,27 @@
+tennis_manager/
+│
+├── main.py
+│
+├── models/
+│   ├── pessoa.py
+│   ├── competidor.py
+│   ├── jogador.py
+│   ├── partida.py
+│   ├── torneio.py
+│   └── ranking.py
+│
+├── services/
+│   ├── simulador_service.py
+│   └── ranking_service.py
+│
+├── interfaces/
+│   └── terminal.py
+│
+├── database/
+│   └── jogadores.json
+│
+└── utils/
+    └── validacoes.py
+    └── enums.py
+
+=======================================================================
