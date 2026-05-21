@@ -18,3 +18,8 @@ class SistemaAtp:
             if jogador.nome == nome:
                 return jogador
         return None
+    
+    def get_ranking_geral(self):
+        self.ranking.atualizar_ranking()
+        return self.ranking.mostrar_ranking()
+        
