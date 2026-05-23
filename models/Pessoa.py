@@ -32,7 +32,7 @@ class Pessoa:
             raise ValueError("A nacionalidade deve ser preenchida.")
         self._nacionaldade = value
     
-    def mostrar_informacoes(self):
+    def mostrar_info(self):
         print(f"Nome: {self.nome}")
         print(f"Idade: {self.idade}")
         print(f"Nacionalidade: {self.nacionaldade}")

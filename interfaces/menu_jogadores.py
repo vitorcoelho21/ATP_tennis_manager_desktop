@@ -29,12 +29,29 @@ class MenuJogadores:
         print("\n--- Cadastro de Jogador ---")
 
         nome = input("Nome: ")
-        idade = int(input("Idade: "))
+        if nome.strip() == "":
+            print("Nome não pode ser vazio.")
+            return
+        try:
+            idade = int(input("Idade: "))
+            if idade < 0:
+                print("Idade deve ser um número positivo.")
+                return
+        except ValueError:
+            print("Idade deve ser um número inteiro.")
+            return
+        
         nacionalidade = input("Nacionalidade: ")
-
-        habilidade_saibro = int(input("Habilidade no saibro (0-100): "))
-        habilidade_grama = int(input("Habilidade na grama (0-100): "))
-        habilidade_hard = int(input("Habilidade no hard (0-100): "))
+        try:
+            habilidade_saibro = int(input("Habilidade no saibro (0-100): "))
+            habilidade_grama = int(input("Habilidade na grama (0-100): "))
+            habilidade_hard = int(input("Habilidade no hard (0-100): "))
+            if not (0 <= habilidade_saibro <= 100 and 0 <= habilidade_grama <= 100 and 0 <= habilidade_hard <= 100):
+                print("Habilidades devem ser entre 0 e 100.")
+                return
+        except ValueError:            
+            print("Habilidades devem ser números inteiros.")
+            return
 
         self.sistema_atp.cadastrar_jogador(
             nome,

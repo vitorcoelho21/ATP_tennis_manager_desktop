@@ -8,8 +8,7 @@ class MenuRanking:
             print("\n===== MENU RANKING =====")
             print("1. Exibir ranking geral")
             print("2. Exibir ranking do jogador")
-            print("3. Exibir ranking por superfície")
-            print("4. Exibir estatísticas gerais")
+            print("3. Exibir estatísticas gerais")
             print("0. Voltar")
             opcao = input("Escolha uma opção: ")
             if opcao == "1":
@@ -17,8 +16,6 @@ class MenuRanking:
             elif opcao == "2":
                 self.exibir_ranking_jogador()
             elif opcao == "3":
-                self.exibir_ranking_superficie()
-            elif opcao == "4":
                 self.exibir_estatisticas_gerais()
             elif opcao == "0":
                 break

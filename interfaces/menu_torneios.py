@@ -65,4 +65,72 @@ class MenuTorneios:
                 print(f"Nome: {torneio.nome}, Categoria: {torneio.categoria.nome}, Superfície: {torneio.superficie.value}, Campeão: {torneio.campeao.nome}")
 
     def adicionar_jogador_torneio(self):
-        
+        if not self.sistema_atp.torneios:
+            print("Nenhum torneio cadastrado.")
+            return
+        i = 1
+        for torneio in self.sistema_atp.torneios:
+            print(f"{i}. {torneio.nome}")
+            i += 1
+        try:
+            indice = int(input("Escolha o torneio para adicionar um jogador: "))
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número.")
+            return
+        if indice < 1 or indice > len(self.sistema_atp.torneios):
+            print("Índice inválido.")
+            return
+        torneio = self.sistema_atp.torneios[indice - 1]
+        j = 1
+        self.sistema_atp.ranking.atualizar_ranking()
+        for jogador in self.sistema_atp.ranking.jogadores:
+            print(f"{j}. {jogador.nome}")
+            j += 1
+        try:
+            indice_jogador = int(input("Escolha o jogador para adicionar ao torneio: "))
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número.")
+            return
+        if indice_jogador < 1 or indice_jogador > len(self.sistema_atp.ranking.jogadores):
+            print("Índice inválido.")
+            return
+        jogador = self.sistema_atp.ranking.jogadores[indice_jogador - 1]
+        try:
+            torneio.adicionar_jogador(jogador)
+        except ValueError as e:
+            print(e)
+            return
+        print(f"Jogador {jogador.nome} adicionado ao torneio {torneio.nome} com sucesso!")
+    
+    def iniciar_torneio(self):
+        if not self.sistema_atp.torneios:
+            print("Nenhum torneio cadastrado.")
+            return
+        i = 1
+        for torneio in self.sistema_atp.torneios:
+            print(f"{i}. {torneio.nome}")
+            i += 1
+        try:
+            indice = int(input("Escolha o torneio para iniciar: "))
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número.")
+            return
+        if indice < 1 or indice > len(self.sistema_atp.torneios):
+            print("Índice inválido.")
+            return
+        torneio = self.sistema_atp.torneios[indice - 1]
+        if len(torneio.jogadores) % 2 != 0:
+            print("O torneio precisa ter um número par de jogadores para iniciar.")
+            return
+        elif len(torneio.jogadores) < 2:
+            print("O torneio precisa ter pelo menos 2 jogadores para iniciar.")
+            return
+        if torneio.campeao is not None:
+            print("Torneio já foi iniciado e tem um campeão.")
+            return
+        try:
+            torneio.iniciar_torneio()
+        except ValueError as e:
+            print(e)
+            return
+        print(f"Torneio {torneio.nome} iniciado com sucesso!")

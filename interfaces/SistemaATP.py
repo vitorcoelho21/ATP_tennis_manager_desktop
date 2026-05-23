@@ -11,7 +11,6 @@ class SistemaAtp:
         jogador = Jogador(nome, idade, nacionalidade, habilidade_saibro, habilidade_grama, habilidade_hard)
         self.jogadores.append(jogador)
         self.ranking.adicionar_jogador(jogador)
-        print(f"Jogador {nome} cadastrado com sucesso!")
 
     def buscar_jogador(self, nome):
         for jogador in self.jogadores:
