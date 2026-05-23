@@ -1,5 +1,5 @@
 from models.Torneio import Torneio
-
+from utils.enums import CategoriaTorneio, CategoriaTorneio, Superficie
 
 class MenuTorneios:
     def __init__(self, sistemaATP):
@@ -29,20 +29,40 @@ class MenuTorneios:
 
     def criar_torneio(self):
         nome = input("Digite o nome do torneio: ")
-        superficie = input("Digite a superfície do torneio (saibro, grama, hard): ")
-        categoria = input("Digite a categoria do torneio: ")
+        superficie = input("Digite a superfície do torneio (saibro, grama, hard): ").lower()
+        categoria = input("Digite a categoria do torneio (atp250, atp500, masters1000): ").lower()
         if superficie == "saibro":
-            torneio = Torneio(nome, superficie, categoria)
-            self.sistema_atp.torneios.append(torneio)
-            print(f"Torneio {nome} criado com sucesso!")
-        if superficie == "grama":
-            torneio = Torneio(nome, superficie, categoria)
-            self.sistema_atp.torneios.append(torneio)
-            print(f"Torneio {nome} criado com sucesso!")
-        if superficie == "hard":
-            torneio = Torneio(nome, superficie, categoria)
-            self.sistema_atp.torneios.append(torneio)
-            print(f"Torneio {nome} criado com sucesso!")
+            superficie = Superficie.SAIBRO
+        elif superficie == "grama":
+            superficie = Superficie.GRAMA
+        elif superficie == "hard":
+            superficie = Superficie.HARD
         else:
-            print("Superfície inválida. Tente novamente.")
+            print("Superfície inválida.")
+            return
+        if categoria == "atp250":
+            categoria = CategoriaTorneio.ATP250
+        elif categoria == "atp500":
+            categoria = CategoriaTorneio.ATP500
+        elif categoria == "masters1000":
+            categoria = CategoriaTorneio.MASTERS1000
+        else:
+            print("Categoria inválida.")
+            return
+        torneio = Torneio(nome, categoria, superficie)
+        self.sistema_atp.torneios.append(torneio)
+        print(f"Torneio {nome} criado com sucesso!")
+
+    def listar_torneios(self):
+        if not self.sistema_atp.torneios:
+            print("Nenhum torneio cadastrado.")
+            return
+        print("\n===== TORNEIOS =====")
+        for torneio in self.sistema_atp.torneios:
+            if torneio.campeao is None:
+                print(f"Nome: {torneio.nome}, Categoria: {torneio.categoria.nome}, Superfície: {torneio.superficie.value}, Jogadores: {len(torneio.jogadores)}")
+            else:
+                print(f"Nome: {torneio.nome}, Categoria: {torneio.categoria.nome}, Superfície: {torneio.superficie.value}, Campeão: {torneio.campeao.nome}")
+
+    def adicionar_jogador_torneio(self):
         
