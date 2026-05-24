@@ -1,7 +1,7 @@
 from interfaces.menu_jogadores import MenuJogadores
 from interfaces.menu_ranking import MenuRanking
 from interfaces.menu_torneios import MenuTorneios
-
+from utils.enums import Superficie
 class MenuPrincipal:
     def __init__(self, sistema_atp):
         self.sistema_atp = sistema_atp

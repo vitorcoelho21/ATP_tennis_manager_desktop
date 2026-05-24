@@ -29,23 +29,25 @@ class MenuTorneios:
 
     def criar_torneio(self):
         nome = input("Digite o nome do torneio: ")
-        superficie = input("Digite a superfície do torneio (saibro, grama, hard): ").lower()
-        categoria = input("Digite a categoria do torneio (atp250, atp500, masters1000): ").lower()
-        if superficie == "saibro":
+        superficie = input("Digite a superfície do torneio (SAIBRO, GRAMA, HARD): ")
+        categoria = input("Digite a categoria do torneio (ATP250, ATP500, MASTERS1000, GRANDSLAM): ")
+        if superficie == "SAIBRO":
             superficie = Superficie.SAIBRO
-        elif superficie == "grama":
+        elif superficie == "GRAMA":
             superficie = Superficie.GRAMA
-        elif superficie == "hard":
+        elif superficie == "HARD":
             superficie = Superficie.HARD
         else:
             print("Superfície inválida.")
             return
-        if categoria == "atp250":
+        if categoria == "ATP250":
             categoria = CategoriaTorneio.ATP250
-        elif categoria == "atp500":
+        elif categoria == "ATP500":
             categoria = CategoriaTorneio.ATP500
-        elif categoria == "masters1000":
+        elif categoria == "MASTERS1000":
             categoria = CategoriaTorneio.MASTERS1000
+        elif categoria == "GRANDSLAM":
+            categoria = CategoriaTorneio.GRAND_SLAM
         else:
             print("Categoria inválida.")
             return

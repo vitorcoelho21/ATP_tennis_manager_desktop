@@ -1,9 +1,9 @@
 from enum import Enum
 
 class Superficie(Enum):
-    SAIBRO = "saibro"
-    GRAMA = "grama"
-    HARD = "hard"
+    SAIBRO = "SAIBRO"
+    GRAMA = "GRAMA"
+    HARD = "HARD"
 
 class EstadoPartida(Enum):
     NAO_INICIADA = 1
