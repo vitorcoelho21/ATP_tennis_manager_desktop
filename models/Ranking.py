@@ -19,7 +19,6 @@ class Ranking:
         for i, jogador in enumerate(self.__jogadores, start=1):
             jogador.ranking = i
     def pegar_pontos(self, jogador):
-        if jogador in self.__jogadores:
             return jogador.pontos
 
     def mostrar_ranking(self):
