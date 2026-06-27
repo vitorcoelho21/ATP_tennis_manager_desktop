@@ -1,5 +1,5 @@
 from models.Torneio import Torneio
-from utils.enums import CategoriaTorneio, CategoriaTorneio, Superficie
+from utils.enums import CategoriaTorneio, Superficie
 
 class MenuTorneios:
     def __init__(self, sistemaATP):
@@ -51,8 +51,7 @@ class MenuTorneios:
         else:
             print("Categoria inválida.")
             return
-        torneio = Torneio(nome, categoria, superficie)
-        self.sistema_atp.torneios.append(torneio)
+        self.sistema_atp.criar_torneio(nome, categoria, superficie)
         print(f"Torneio {nome} criado com sucesso!")
 
     def listar_torneios(self):
@@ -131,7 +130,7 @@ class MenuTorneios:
             print("Torneio já foi iniciado e tem um campeão.")
             return
         try:
-            torneio.iniciar_torneio()
+            self.sistema_atp.iniciar_torneio(torneio)
         except ValueError as e:
             print(e)
             return

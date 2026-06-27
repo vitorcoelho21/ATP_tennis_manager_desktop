@@ -41,6 +41,7 @@ class Torneio:
         return partidas_rodada
     
     def iniciar_torneio(self):
+        self.__partidas.clear()
         partida_rodada = self.gerar_chave(self.__jogadores)
         vencedores = []
         for partida in partida_rodada:
@@ -56,4 +57,9 @@ class Torneio:
         self.campeao = vencedores[0]
         self.campeao.adicionar_titulo(self.nome)
         self.campeao.ganhar_pontos(self.categoria.pontos)
+        for jogador in self.__jogadores:
+            jogador.recuperar_stamina()
         print(f"\nO campeão do {self.nome} é {self.campeao.nome}!")
+
+    def __str__(self):
+        return f"{self.nome} - {self.categoria.nome}"

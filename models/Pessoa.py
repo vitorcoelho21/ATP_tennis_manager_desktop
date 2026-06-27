@@ -1,8 +1,8 @@
 class Pessoa:
-    def __init__(self, nome, idade,nacionaldade):
+    def __init__(self, nome, idade,nacionalidade):
         self.nome = nome
         self.idade = idade
-        self.nacionaldade = nacionaldade
+        self.nacionalidade = nacionalidade
 
     @property
     def nome(self):
@@ -11,8 +11,8 @@ class Pessoa:
     def idade(self):
         return self._idade
     @property
-    def nacionaldade(self):       
-        return self._nacionaldade
+    def nacionalidade(self):       
+        return self._nacionalidade
     
     @nome.setter
     def nome(self, value):
@@ -26,16 +26,16 @@ class Pessoa:
             raise ValueError("A idade deve ser preenchida.")
         self._idade = value
 
-    @nacionaldade.setter
-    def nacionaldade(self, value):
+    @nacionalidade.setter
+    def nacionalidade(self, value):
         if not value:
             raise ValueError("A nacionalidade deve ser preenchida.")
-        self._nacionaldade = value
+        self._nacionalidade = value
     
     def mostrar_info(self):
-        print(f"Nome: {self.nome}")
-        print(f"Idade: {self.idade}")
-        print(f"Nacionalidade: {self.nacionaldade}")
+        print(f"Nome: {self.nome}\n")
+        print(f"Idade: {self.idade}\n")
+        print(f"Nacionalidade: {self.nacionalidade}")
     
     def __str__(self):
-        return f"Nome: {self.nome} ({self.nacionaldade})"
+        return f"Nome: {self.nome} ({self.nacionalidade})"

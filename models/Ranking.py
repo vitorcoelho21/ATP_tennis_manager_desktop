@@ -15,12 +15,10 @@ class Ranking:
             self.__jogadores.remove(jogador)
     
     def atualizar_ranking(self):
-        self.__jogadores.sort(key=self.pegar_pontos, reverse=True)
+        self.__jogadores.sort(key=lambda j: j.pontos, reverse=True)
+
         for i, jogador in enumerate(self.__jogadores, start=1):
             jogador.ranking = i
-    def pegar_pontos(self, jogador):
-            return jogador.pontos
-
     def mostrar_ranking(self):
         if not self.__jogadores:
             return "Ranking vazio."

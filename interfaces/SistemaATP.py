@@ -66,4 +66,13 @@ class SistemaAtp:
         for torneio in self.torneios:
             for jogador in self.jogadores:
                 torneio.adicionar_jogador(jogador)
+
+    def iniciar_torneio(self, torneio):
+        torneio.iniciar_torneio()
+        self.ranking.atualizar_ranking()
+
+    def criar_torneio(self, nome, categoria, superficie):
+        torneio = Torneio(nome, categoria, superficie)
+        self.torneios.append(torneio)
+        return torneio
         

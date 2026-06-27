@@ -79,7 +79,7 @@ class Partida:
     
     def simular(self):
         if self._finalizada:
-            raise Exception("Partida já foi finalizada.")
+            raise ValueError("Partida já foi finalizada.")
         jogador1_sets = 0
         jogador2_sets = 0
         placar_sets = []
@@ -129,3 +129,6 @@ class Partida:
             desgaste += 3
         self._vencedor.perder_stamina(desgaste)
         self._perdedor.perder_stamina(desgaste + 4)
+
+    def __str__(self):
+        return f"{self.jogador1.nome} x {self.jogador2.nome}"

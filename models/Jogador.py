@@ -73,6 +73,10 @@ class Jogador(Pessoa, Competidor):
     @property
     def titulos(self):
         return self.__titulos
+    @property
+    def pontos(self):
+        return self.__pontos
+
 
     # SETTERS
 
@@ -84,6 +88,11 @@ class Jogador(Pessoa, Competidor):
 
         self.__ranking = novo_ranking
 
+    @pontos.setter
+    def pontos(self, valor):
+        if valor < 0:
+            raise ValueError("Pontos inválidos.")
+        self.__pontos = valor
     # MÉTODOS
 
     def adicionar_vitoria(self):
@@ -178,14 +187,11 @@ class Jogador(Pessoa, Competidor):
         return titulos_str  
 
     def mostrar_info(self):
-
-        info_base = super().mostrar_info()
-
         return (
-            f"{info_base}\n"
-            f"Ranking: {self.__ranking}\n"
-            f"Pontos: {self.__pontos}"
-        )
+            f"Nome: {self.nome}\n"
+            f"Idade: {self.idade}\n"
+            f"Nacionalidade: {self.nacionalidade}"
+    )
 
     def __str__(self):
 
@@ -194,4 +200,7 @@ class Jogador(Pessoa, Competidor):
             f"{self.nome} "
             f"({self.pontos} pts)"
         )
+    
+    def __repr__(self):
+        return self.__str__()
     
