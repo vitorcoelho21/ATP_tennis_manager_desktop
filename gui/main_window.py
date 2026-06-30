@@ -1,5 +1,5 @@
 import customtkinter as ctk
-
+from gui.torneios_page import TorneiosPage
 from gui.styles import Cores
 from gui.home_page import HomePage
 from gui.jogadores_page import JogadoresPage
@@ -126,6 +126,15 @@ class MainWindow(ctk.CTk):
 
     def abrir_torneios(self):
         self.limpar_tela()
+
+        TorneiosPage(
+            self.content,
+            self.sistema
+        ).pack(
+            fill="both",
+            expand=True
+        )
+
 
     def abrir_temporada(self):
         self.limpar_tela()

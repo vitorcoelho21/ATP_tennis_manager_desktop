@@ -1,6 +1,7 @@
 import os
 import sqlite3
-from utils.enums import Superficie
+from models.Torneio import Torneio
+from utils.enums import CategoriaTorneio, CategoriaTorneio, Superficie
 
 class Banco:
     def __init__(self):
@@ -32,7 +33,26 @@ class Banco:
                 fisico INTEGER
             )
         """)
+        self.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS torneios(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT UNIQUE,
+            categoria TEXT,
+            superficie TEXT,
+            campeao TEXT
+        )
+        """)
+        self.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS torneio_jogadores(
 
+            torneio_id INTEGER,
+
+            jogador_id INTEGER,
+
+            PRIMARY KEY(torneio_id,jogador_id)
+
+        )
+        """)
         self.conexao.commit()
     
     def salvar_jogador(self, jogador):
@@ -74,10 +94,86 @@ class Banco:
         except sqlite3.IntegrityError:
             print("Jogador já existe no banco.")
 
+    def salvar_torneio(self, torneio):
+
+        try:
+
+            self.cursor.execute("""
+
+            INSERT INTO torneios(
+
+                nome,
+
+                categoria,
+
+                superficie,
+
+                campeao
+
+            )
+
+            VALUES(?,?,?,?)
+
+            """, (
+
+                torneio.nome,
+
+                torneio.categoria.nome,
+
+                torneio.superficie.value,
+
+                None
+
+            ))
+
+            torneio.id = self.cursor.lastrowid
+
+            self.conexao.commit()
+
+        except sqlite3.IntegrityError:
+
+            print("Torneio já existe.")
+
+    def inscrever_jogador(self, torneio, jogador):
+
+        self.cursor.execute("""
+
+        INSERT INTO torneio_jogadores(
+
+            torneio_id,
+
+            jogador_id
+
+        )
+
+        VALUES(?,?)
+
+        """,(
+
+            torneio.id,
+
+            jogador.id
+
+        ))
+
+        self.conexao.commit()
+
     def carregar_jogadores(self):
         self.cursor.execute("SELECT * FROM jogadores")
         return self.cursor.fetchall()
+    
+    def carregar_torneios(self):
+        self.cursor.execute("SELECT * FROM torneios")
+        return self.cursor.fetchall()
+    
+    def carregar_inscricoes(self):
 
+        self.cursor.execute("""
+            SELECT torneio_id, jogador_id
+            FROM torneio_jogadores
+        """)
+
+        return self.cursor.fetchall()
     def atualizar_jogador(self, jogador):
         self.cursor.execute("""
             UPDATE jogadores

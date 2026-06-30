@@ -13,6 +13,10 @@ class SistemaAtp:
         self.banco.criar_tabelas()
         self.torneios = []
         self.carregar_jogadores()
+        self.carregar_torneios()
+        self.carregar_inscricoes()
+        if not self.torneios:
+            self.gerar_torneios_teste()
 
     def cadastrar_jogador(self, nome, idade, nacionalidade, habilidade_saibro, habilidade_grama, habilidade_hard):
         if self.buscar_jogador(nome):
@@ -28,7 +32,22 @@ class SistemaAtp:
             if jogador.nome == nome:
                 return jogador
         return None
-    
+    def buscar_jogador_id(self, id):
+
+        for jogador in self.jogadores:
+
+            if jogador.id == id:
+                return jogador
+    def buscar_torneio_id(self, id):
+
+        for torneio in self.torneios:
+
+            if torneio.id == id:
+                return torneio
+
+        return None
+
+        return None
     def get_ranking_geral(self):
         self.ranking.atualizar_ranking()
         return self.ranking.mostrar_ranking()
@@ -80,10 +99,34 @@ class SistemaAtp:
         self.ranking.atualizar_ranking()
         self.atualizar_banco()
 
-    def criar_torneio(self, nome, categoria, superficie):
-        torneio = Torneio(nome, categoria, superficie)
-        self.torneios.append(torneio)
-        return torneio
+    def carregar_torneios(self):
+
+        torneios_carregados = self.banco.carregar_torneios()
+
+        categorias = {
+            "GRAND SLAM": CategoriaTorneio.GRAND_SLAM,
+            "MASTERS 1000": CategoriaTorneio.MASTERS_1000,
+            "ATP 500": CategoriaTorneio.ATP_500,
+            "ATP 250": CategoriaTorneio.ATP_250
+        }
+
+        superficies = {
+            "SAIBRO": Superficie.SAIBRO,
+            "GRAMA": Superficie.GRAMA,
+            "HARD": Superficie.HARD
+        }
+
+        for linha in torneios_carregados:
+
+            torneio = Torneio(
+                linha[1],
+                categorias[linha[2]],
+                superficies[linha[3]]
+            )
+
+            torneio.id = linha[0]
+
+            self.torneios.append(torneio)
     
     def carregar_jogadores(self):
         jogadores_carregados = self.banco.carregar_jogadores()
@@ -107,6 +150,27 @@ class SistemaAtp:
             self.jogadores.append(jogador)
             self.ranking.adicionar_jogador(jogador)
 
+    def carregar_inscricoes(self):
+
+        inscricoes = self.banco.carregar_inscricoes()
+
+        for torneio_id, jogador_id in inscricoes:
+
+            torneio = self.buscar_torneio_id(torneio_id)
+
+            jogador = self.buscar_jogador_id(jogador_id)
+
+            if torneio and jogador:
+                torneio.adicionar_jogador(jogador)
+
     def atualizar_banco(self):
         for jogador in self.jogadores:
             self.banco.atualizar_jogador(jogador)
+
+    def inscrever_jogador(self, torneio, jogador):
+        if jogador in torneio.jogadores:
+            raise ValueError("Jogador já inscrito.")
+        
+        torneio.adicionar_jogador(jogador)
+
+        self.banco.inscrever_jogador(torneio, jogador)
