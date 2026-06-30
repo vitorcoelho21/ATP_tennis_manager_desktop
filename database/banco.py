@@ -109,3 +109,10 @@ class Banco:
         ))
 
         self.conexao.commit()
+    
+    def remover_jogador(self, jogador):
+        self.cursor.execute(
+            "DELETE FROM jogadores WHERE id = ?",
+            (jogador.id,)
+        )
+        self.conexao.commit()
