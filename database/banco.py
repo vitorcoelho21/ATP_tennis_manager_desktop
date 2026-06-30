@@ -1,10 +1,14 @@
+import os
 import sqlite3
-
 from utils.enums import Superficie
 
 class Banco:
     def __init__(self):
-        self.conexao = sqlite3.connect("database/tennis.db")
+        caminho = os.path.join(
+        os.path.dirname(__file__),
+        "tennis.db"
+        )
+        self.conexao = sqlite3.connect(caminho)
         self.cursor = self.conexao.cursor()
 
     def fechar(self):

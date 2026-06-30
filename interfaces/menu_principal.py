@@ -1,6 +1,7 @@
 from interfaces.menu_jogadores import MenuJogadores
 from interfaces.menu_ranking import MenuRanking
 from interfaces.menu_torneios import MenuTorneios
+from interfaces.menu_temporada import MenuTemporada
 from utils.enums import Superficie
 class MenuPrincipal:
     def __init__(self, sistema_atp):
@@ -12,6 +13,7 @@ class MenuPrincipal:
             print("1. Jogadores")
             print("2. Ranking")
             print("3. Torneios")
+            print("4. Temporada")
             print("0. Sair")
 
             escolha = input("Escolha uma opção: ")
@@ -22,6 +24,9 @@ class MenuPrincipal:
                 self.menu_ranking()
             elif escolha == "3":
                 self.menu_torneios()
+            elif escolha == "4":
+                menu_temporada = MenuTemporada(self.sistema_atp)
+                menu_temporada.exibir_menu()
             elif escolha == "0":
                 print("Saindo do sistema...")
                 break
