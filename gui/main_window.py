@@ -122,7 +122,16 @@ class MainWindow(ctk.CTk):
         )
 
     def abrir_ranking(self):
+
         self.limpar_tela()
+
+        RankingPage(
+            self.content,
+            self.sistema
+        ).pack(
+            fill="both",
+            expand=True
+        )
 
     def abrir_torneios(self):
         self.limpar_tela()

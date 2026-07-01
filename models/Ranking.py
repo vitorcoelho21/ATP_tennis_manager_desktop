@@ -4,15 +4,18 @@ class Ranking:
 
     @property
     def jogadores(self):
-        return self.__jogadores.copy()
+        return self.__jogadores
 
     def adicionar_jogador(self, jogador):
         if jogador not in self.__jogadores:
             self.__jogadores.append(jogador)
     
     def remover_jogador(self, jogador):
-        if jogador in self.__jogadores:
-            self.__jogadores.remove(jogador)
+
+        self.__jogadores = [
+            j for j in self.__jogadores
+            if j.id != jogador.id
+        ]
     
     def atualizar_ranking(self):
         self.__jogadores.sort(key=lambda j: j.pontos, reverse=True)

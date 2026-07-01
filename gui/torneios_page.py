@@ -546,10 +546,6 @@ class TorneiosPage(ctk.CTkFrame):
 
             )
 
-    # =====================================================
-    # NOVO TORNEIO
-    # =====================================================
-
     def criar_torneio(self):
 
         janela = ctk.CTkToplevel(self)

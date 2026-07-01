@@ -9,6 +9,7 @@ class Banco:
         os.path.dirname(__file__),
         "tennis.db"
         )
+        print("Banco:", caminho)
         self.conexao = sqlite3.connect(caminho)
         self.cursor = self.conexao.cursor()
 
@@ -205,10 +206,66 @@ class Banco:
         ))
 
         self.conexao.commit()
-    
-    def remover_jogador(self, jogador):
+
+    def excluir_jogador(self, jogador_id):
+
+        print("ID recebido:", jogador_id)
+
         self.cursor.execute(
             "DELETE FROM jogadores WHERE id = ?",
-            (jogador.id,)
+            (jogador_id,)
         )
+
+        print("Linhas apagadas:", self.cursor.rowcount)
+
+        self.conexao.commit()
+
+    def editar_jogador(self, jogador):
+
+        self.cursor.execute("""
+
+            UPDATE jogadores
+
+            SET
+
+            nome=?,
+
+            idade=?,
+
+            nacionalidade=?,
+
+            saibro=?,
+
+            grama=?,
+
+            hard=?,
+
+            stamina=?,
+
+            fisico=?
+
+            WHERE id=?
+
+        """,(
+
+            jogador.nome,
+
+            jogador.idade,
+
+            jogador.nacionalidade,
+
+            jogador.habilidades[Superficie.SAIBRO],
+
+            jogador.habilidades[Superficie.GRAMA],
+
+            jogador.habilidades[Superficie.HARD],
+
+            jogador.stamina,
+
+            jogador.fisico,
+
+            jogador.id
+
+        ))
+
         self.conexao.commit()

@@ -174,3 +174,78 @@ class SistemaAtp:
         torneio.adicionar_jogador(jogador)
 
         self.banco.inscrever_jogador(torneio, jogador)
+
+    def excluir_jogador(self, jogador):
+
+        self.ranking.remover_jogador(jogador)
+
+        if jogador in self.ranking.jogadores:
+            self.ranking.jogadores.remove(jogador)
+
+        # Remove o jogador dos torneios em que estiver inscrito
+        for torneio in self.torneios:
+
+            if jogador in torneio.jogadores:
+                torneio.jogadores.remove(jogador)
+
+        self.banco.excluir_jogador(jogador.id)
+
+        self.ranking.atualizar_ranking()
+
+    def criar_torneio(self, nome, categoria, superficie):
+
+        torneio = Torneio(
+            nome,
+            categoria,
+            superficie
+        )
+
+        self.torneios.append(torneio)
+
+        self.banco.salvar_torneio(torneio)
+
+        return torneio
+
+    def editar_jogador(
+
+        self,
+
+        jogador,
+
+        nome,
+
+        idade,
+
+        nacionalidade,
+
+        saibro,
+
+        grama,
+
+        hard,
+
+        stamina,
+
+        fisico
+
+    ):
+
+        jogador.nome = nome
+
+        jogador.idade = idade
+
+        jogador.nacionalidade = nacionalidade
+
+        jogador.habilidades[Superficie.SAIBRO] = saibro
+
+        jogador.habilidades[Superficie.GRAMA] = grama
+
+        jogador.habilidades[Superficie.HARD] = hard
+
+        jogador.stamina = stamina
+
+        jogador.fisico = fisico
+
+        self.banco.editar_jogador(jogador)
+
+        self.ranking.atualizar_ranking()

@@ -180,7 +180,7 @@ class JogadoresPage(ctk.CTkFrame):
 
             cabecalho,
 
-            text=f"🎾 {jogador.nome}",
+            text=f"{jogador.nome}",
 
             font=("Segoe UI",22,"bold")
 
@@ -220,7 +220,7 @@ class JogadoresPage(ctk.CTkFrame):
 
             info,
 
-            text=f"🌎 {jogador.nacionalidade}"
+            text=f"Nacionalidade: {jogador.nacionalidade}"
 
         ).grid(
 
@@ -240,7 +240,7 @@ class JogadoresPage(ctk.CTkFrame):
 
             info,
 
-            text=f"🎂 {jogador.idade} anos"
+            text=f"Idade: {jogador.idade} anos"
 
         ).grid(
 
@@ -348,35 +348,35 @@ class JogadoresPage(ctk.CTkFrame):
 
         self.criar_barra(
             frame,
-            "🎾 Saibro",
+            "Saibro",
             jogador.habilidades[list(jogador.habilidades.keys())[0]],
             0
         )
 
         self.criar_barra(
             frame,
-            "🌱 Grama",
+            "Grama",
             jogador.habilidades[list(jogador.habilidades.keys())[1]],
             1
         )
 
         self.criar_barra(
             frame,
-            "🏟 Hard",
+            "Hard",
             jogador.habilidades[list(jogador.habilidades.keys())[2]],
             2
         )
 
         self.criar_barra(
             frame,
-            "❤️ Stamina",
+            "Stamina",
             jogador.stamina,
             3
         )
 
         self.criar_barra(
             frame,
-            "💪 Físico",
+            "Físico",
             jogador.fisico,
             4
         )
@@ -586,70 +586,144 @@ class JogadoresPage(ctk.CTkFrame):
             texto
         )
 
-
     def editar_jogador(self, jogador):
 
-        messagebox.showinfo(
+        janela = ctk.CTkToplevel(self)
 
-            "Editar",
+        janela.title("Editar Jogador")
 
-            "A edição será implementada em uma próxima versão."
+        janela.geometry("450x620")
 
-        )
+        janela.grab_set()
 
+        campos = {}
+
+        dados = [
+
+            ("Nome", jogador.nome),
+
+            ("Idade", jogador.idade),
+
+            ("Nacionalidade", jogador.nacionalidade),
+
+            ("Saibro", jogador.habilidades[Superficie.SAIBRO]),
+
+            ("Grama", jogador.habilidades[Superficie.GRAMA]),
+
+            ("Hard", jogador.habilidades[Superficie.HARD]),
+
+            ("Stamina", jogador.stamina),
+
+            ("Físico", jogador.fisico)
+
+        ]
+
+        for texto, valor in dados:
+
+            ctk.CTkLabel(
+
+                janela,
+
+                text=texto
+
+            ).pack(pady=(12,2))
+
+            entrada = ctk.CTkEntry(janela)
+
+            entrada.insert(0, str(valor))
+
+            entrada.pack(
+
+                fill="x",
+
+                padx=30
+
+            )
+
+            campos[texto] = entrada
+
+        def salvar():
+
+            try:
+
+                self.sistema.editar_jogador(
+
+                    jogador,
+
+                    campos["Nome"].get(),
+
+                    int(campos["Idade"].get()),
+
+                    campos["Nacionalidade"].get(),
+
+                    int(campos["Saibro"].get()),
+
+                    int(campos["Grama"].get()),
+
+                    int(campos["Hard"].get()),
+
+                    int(campos["Stamina"].get()),
+
+                    int(campos["Físico"].get())
+
+                )
+
+                self.atualizar_lista()
+
+                janela.destroy()
+
+                messagebox.showinfo(
+
+                    "Sucesso",
+
+                    "Jogador atualizado."
+
+                )
+
+            except Exception as erro:
+
+                messagebox.showerror(
+
+                    "Erro",
+
+                    str(erro)
+
+                )
+
+        ctk.CTkButton(
+
+            janela,
+
+            text="Salvar Alterações",
+
+            command=salvar
+
+        ).pack(pady=25)
 
     def excluir_jogador(self, jogador):
 
         resposta = messagebox.askyesno(
-
             "Excluir",
-
             f"Deseja excluir {jogador.nome}?"
-
         )
 
         if not resposta:
-
             return
 
         try:
 
-            self.sistema.jogadores.remove(jogador)
-
-            self.sistema.ranking.jogadores.remove(jogador)
-
-            if hasattr(self.sistema.banco, "remover_jogador"):
-
-                self.sistema.banco.remover_jogador(jogador.id)
+            self.sistema.excluir_jogador(jogador)
 
             self.atualizar_lista()
 
             messagebox.showinfo(
-
                 "Sucesso",
-
                 "Jogador removido."
-
             )
 
         except Exception as erro:
 
             messagebox.showerror(
-
                 "Erro",
-
                 str(erro)
-
             )
-
-def excluir_jogador(self, jogador_id):
-
-    self.cursor.execute(
-
-        "DELETE FROM jogadores WHERE id=?",
-
-        (jogador_id,)
-
-    )
-
-    self.conexao.commit()
