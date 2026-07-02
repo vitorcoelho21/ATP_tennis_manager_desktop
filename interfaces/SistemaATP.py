@@ -81,9 +81,11 @@ class SistemaAtp:
         ]
 
         for nome, categoria, superficie in torneios:
-            self.torneios.append(
-                Torneio(nome, categoria, superficie)
-            )
+            self.criar_torneio(
+    nome,
+    categoria,
+    superficie
+)
 
     def gerar_temporada_teste(self):
         self.gerar_jogadores_teste()
@@ -95,7 +97,6 @@ class SistemaAtp:
 
     def iniciar_torneio(self, torneio):
         torneio.iniciar_torneio()
-        self.atualizar_banco()
         self.ranking.atualizar_ranking()
         self.atualizar_banco()
 
@@ -249,3 +250,10 @@ class SistemaAtp:
         self.banco.editar_jogador(jogador)
 
         self.ranking.atualizar_ranking()
+
+    def excluir_torneio(self, torneio):
+
+        if torneio in self.torneios:
+            self.torneios.remove(torneio)
+
+        self.banco.excluir_torneio(torneio.id)

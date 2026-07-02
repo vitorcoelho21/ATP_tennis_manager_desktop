@@ -4,6 +4,7 @@ from utils.enums import Superficie
 from utils.enums import CategoriaTorneio
 class Torneio:
     def __init__(self, nome, categoria, superficie):
+        self.id = None
         self.nome = nome
         self.categoria = categoria
         self.superficie = superficie

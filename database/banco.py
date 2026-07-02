@@ -44,16 +44,24 @@ class Banco:
         )
         """)
         self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS torneio_jogadores(
+            CREATE TABLE IF NOT EXISTS torneio_jogadores(
 
-            torneio_id INTEGER,
+                torneio_id INTEGER,
 
-            jogador_id INTEGER,
+                jogador_id INTEGER,
 
-            PRIMARY KEY(torneio_id,jogador_id)
+                PRIMARY KEY(torneio_id, jogador_id),
 
-        )
-        """)
+                FOREIGN KEY(torneio_id)
+                    REFERENCES torneios(id)
+                    ON DELETE CASCADE,
+
+                FOREIGN KEY(jogador_id)
+                    REFERENCES jogadores(id)
+                    ON DELETE CASCADE
+
+            )
+        """)     
         self.conexao.commit()
     
     def salvar_jogador(self, jogador):
@@ -267,5 +275,25 @@ class Banco:
             jogador.id
 
         ))
+
+        self.conexao.commit()
+
+    def excluir_torneio(self, torneio_id):
+
+        self.cursor.execute(
+            """
+            DELETE FROM torneio_jogadores
+            WHERE torneio_id = ?
+            """,
+            (torneio_id,)
+        )
+
+        self.cursor.execute(
+            """
+            DELETE FROM torneios
+            WHERE id = ?
+            """,
+            (torneio_id,)
+        )
 
         self.conexao.commit()

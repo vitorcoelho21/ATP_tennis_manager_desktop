@@ -119,6 +119,7 @@ class Partida:
     
     def atualizar_estatisticas(self, qtd_games, qtd_sets):
         self._vencedor.adicionar_vitoria()
+        self._vencedor.ganhar_pontos(100)
         self._vencedor.historico.append(self)
         self._perdedor.adicionar_derrota()
         self._perdedor.historico.append(self)

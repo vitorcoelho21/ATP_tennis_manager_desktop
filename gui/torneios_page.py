@@ -373,7 +373,7 @@ class TorneiosPage(ctk.CTkFrame):
 
             return
 
-        self.sistema.torneios.remove(torneio)
+        self.sistema.excluir_torneio(torneio)
 
         self.atualizar_lista()
 
