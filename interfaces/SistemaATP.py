@@ -257,3 +257,7 @@ class SistemaAtp:
             self.torneios.remove(torneio)
 
         self.banco.excluir_torneio(torneio.id)
+    
+    def get_temporada(self):
+
+        return self.torneios

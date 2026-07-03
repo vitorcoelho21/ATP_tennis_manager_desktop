@@ -11,6 +11,7 @@ class Torneio:
         self.__jogadores = []
         self.__partidas = []
         self.campeao = None
+        self.finalizado = False
 
     @property
     def jogadores(self):
@@ -60,6 +61,7 @@ class Torneio:
         self.campeao.ganhar_pontos(self.categoria.pontos)
         for jogador in self.__jogadores:
             jogador.recuperar_stamina()
+        self.finalizado = True
         print(f"\nO campeão do {self.nome} é {self.campeao.nome}!")
 
     def __str__(self):

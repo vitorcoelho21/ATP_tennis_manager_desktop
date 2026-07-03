@@ -1,16 +1,22 @@
 import customtkinter as ctk
+from gui.temporada_page import TemporadaPage
 from gui.torneios_page import TorneiosPage
 from gui.styles import Cores
 from gui.home_page import HomePage
 from gui.jogadores_page import JogadoresPage
 from gui.ranking_page import RankingPage
+import os
 
 class MainWindow(ctk.CTk):
 
     def __init__(self, sistema):
 
         super().__init__()
-        
+        try:
+            icone = os.path.join("assets", "icon.ico")
+            self.iconbitmap(icone)
+        except Exception:
+            pass
         self.sistema = sistema
 
         self.title("ATP Tennis Manager")
@@ -146,4 +152,13 @@ class MainWindow(ctk.CTk):
 
 
     def abrir_temporada(self):
+
         self.limpar_tela()
+
+        TemporadaPage(
+            self.content,
+            self.sistema
+        ).pack(
+            fill="both",
+            expand=True
+        )
