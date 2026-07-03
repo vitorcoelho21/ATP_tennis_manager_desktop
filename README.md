@@ -1,5 +1,9 @@
 # ATP Tennis Manager
 
+<p align="center">
+  <img src="screenshot.png" width="600"/>
+</p>
+
 Sistema de gerenciamento de temporada de tênis desenvolvido em **Python**, utilizando **Programação Orientada a Objetos (POO)**, **SQLite** e **CustomTkinter**.
 
 O projeto simula uma temporada de tênis inspirada no circuito profissional, permitindo o gerenciamento de jogadores, torneios, partidas e ranking mundial por meio de uma interface gráfica.
