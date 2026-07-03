@@ -467,6 +467,12 @@ class JogadoresPage(ctk.CTkFrame):
             side="right",
             padx=5
         )
+        ctk.CTkButton(
+            frame,
+        text="Recuperar",
+        width=120,
+        command=lambda j=jogador: self.recuperar_stamina(j)
+        ).pack(side="left", padx=5)
 
 
     def novo_jogador(self):
@@ -727,3 +733,14 @@ class JogadoresPage(ctk.CTkFrame):
                 "Erro",
                 str(erro)
             )
+
+    def recuperar_stamina(self, jogador):
+
+        self.sistema.recuperar_stamina_jogador(jogador)
+
+        self.atualizar_lista()
+
+        messagebox.showinfo(
+            "Sucesso",
+            f"{jogador.nome} recuperou um pouco de stamina!"
+        )

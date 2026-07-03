@@ -8,15 +8,29 @@ from database.banco import Banco
 class SistemaAtp:
     def __init__(self):
         self.jogadores = []
+        self.torneios = []
         self.ranking = Ranking()
         self.banco = Banco()
+
         self.banco.criar_tabelas()
-        self.torneios = []
+
         self.carregar_jogadores()
         self.carregar_torneios()
         self.carregar_inscricoes()
-        if not self.torneios:
+
+        if len(self.jogadores) == 0:
+            self.gerar_jogadores_demo()
+
+        if len(self.torneios) == 0:
             self.gerar_torneios_teste()
+
+        # Inscreve jogadores em torneios que estiverem vazios
+        for torneio in self.torneios:
+            if len(torneio.jogadores) == 0:
+                for jogador in self.jogadores:
+                    torneio.adicionar_jogador(jogador)
+
+        self.ranking.atualizar_ranking()
 
     def cadastrar_jogador(self, nome, idade, nacionalidade, habilidade_saibro, habilidade_grama, habilidade_hard):
         if self.buscar_jogador(nome):
@@ -82,10 +96,10 @@ class SistemaAtp:
 
         for nome, categoria, superficie in torneios:
             self.criar_torneio(
-    nome,
-    categoria,
-    superficie
-)
+                nome,
+                categoria,
+                superficie
+            )
 
     def gerar_temporada_teste(self):
         self.gerar_jogadores_teste()
@@ -261,3 +275,28 @@ class SistemaAtp:
     def get_temporada(self):
 
         return self.torneios
+    
+    def gerar_jogadores_demo(self):
+
+        nomes = [
+            "Djokovic", "Alcaraz", "Sinner", "Medvedev",
+            "Zverev", "Rune", "Rublev", "Tsitsipas"
+        ]
+
+        for nome in nomes:
+
+            print("Jogador criado:", nome)
+
+            self.cadastrar_jogador(
+                nome,
+                random.randint(20, 36),
+                "Demo",
+                random.randint(70, 100),
+                random.randint(70, 100),
+                random.randint(70, 100)
+            )
+
+    def recuperar_stamina_jogador(self, jogador):
+
+        jogador.recuperar_stamina()
+        self.banco.atualizar_jogador(jogador)

@@ -8,6 +8,5 @@ if __name__ == "__main__":
 
 # Main para rodar a interface gráfica
 from gui.app import iniciar
-
 if __name__ == "__main__":
-    iniciar()
+    iniciar()   

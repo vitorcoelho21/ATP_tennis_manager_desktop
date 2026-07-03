@@ -167,7 +167,7 @@ class Jogador(Pessoa, Competidor):
 
     def recuperar_stamina(self):
 
-        self.__stamina += 10
+        self.__stamina += 30
 
         if self.__stamina > 100:
             self.__stamina = 100
