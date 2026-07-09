@@ -69,7 +69,7 @@ class SistemaAtp:
     def gerar_jogadores_teste(self):
         nomes = [
             "Djokovic", "Alcaraz", "Sinner", "Medvedev",
-            "Zverev", "Rune", "Rublev", "Tsitsipas"
+            "Zverev", "Rune", "Rublev"
         ]
 
         for nome in nomes:
@@ -280,7 +280,7 @@ class SistemaAtp:
 
         nomes = [
             "Djokovic", "Alcaraz", "Sinner", "Medvedev",
-            "Zverev", "Rune", "Rublev", "Tsitsipas"
+            "Zverev", "Rune", "Rublev"
         ]
 
         for nome in nomes:

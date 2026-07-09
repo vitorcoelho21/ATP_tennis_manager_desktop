@@ -30,7 +30,7 @@ class MenuTorneios:
     def criar_torneio(self):
         nome = input("Digite o nome do torneio: ")
         superficie = input("Digite a superfície do torneio (SAIBRO, GRAMA, HARD): ")
-        categoria = input("Digite a categoria do torneio (ATP250, ATP500, MASTERS1000, GRANDSLAM): ")
+        categoria = input("Digite a categoria do torneio (ATP_250, ATP_500, MASTERS1000, GRANDSLAM): ")
         if superficie == "SAIBRO":
             superficie = Superficie.SAIBRO
         elif superficie == "GRAMA":
